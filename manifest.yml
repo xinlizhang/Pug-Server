@@ -1,4 +1,12 @@
 applications:
-- name: node-hello-world
+- path: .
   memory: 128M
-  buildpack: sdk-for-nodejs
+  instances: 1
+  domain: mybluemix.net
+  name: Pug-Server
+  host: Pug-Server
+  disk_quota: 1024M
+  services:
+  - availability-monitoring-auto
+  - Cloudant NoSQL DB-pug
+  buildpack: php_buildpack
