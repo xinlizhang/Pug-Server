@@ -1,12 +1,10 @@
+---
 applications:
 - path: .
   memory: 128M
   instances: 1
   domain: mybluemix.net
-  name: Pug-Server
-  host: Pug-Server
+  name: Pug-Php
+  host: Pug-Php
   disk_quota: 1024M
-  services:
-  - availability-monitoring-auto
-  - Cloudant NoSQL DB-pug
-  buildpack: php_buildpack
+  random-route: true
