@@ -21,6 +21,7 @@
   */
 require 'vendor/autoload.php';
 require_once('./Cloudant.php');
+require_once('./DBConnect/QuestionnaireDBConnect.php');
 $app = new \Slim\Slim();
 $dotenv = new Dotenv\Dotenv(__DIR__);
 try {
@@ -64,6 +65,39 @@ $app->put('/api/visitors/:id', function($id) {
 	global $app;
 	$visitor = json_decode($app->request()->getBody(), true);
     echo json_encode(Cloudant::Instance()->put($id, $visitor));
+});
+
+$app->get('/api/fuck', function () {
+
+});
+
+/**
+ * 获取某一问卷信息，如描述、问题等
+ * @id 是问卷id
+ */
+$app->get('/api/questionnaire/:id', function ($id) {
+    global $app;
+    // 目前只有一个默认的问卷，无视id
+    QuestionnaireDBConnect::Instance()->getGuestionnaireByID($id);
+    $app->response()->body(json_encode(   array(
+        'abc' => '123'
+    )));
+});
+
+/**
+ * 提交问卷结果
+ * @questionnaireid 是问卷id
+ */
+$app->post('/api/questionnaire/submit/:questionnaireid', function ($questionnaireId) {
+
+});
+
+/**
+ * 管理员获取某一问卷的全部结果
+ * @id 问卷id
+ */
+$app->get('/api/admin/questionnaire/result/:id', function ($questionnaireId) {
+
 });
 
 $app->run();
